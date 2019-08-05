@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -17,22 +19,29 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mMainNav;
     private FrameLayout mMainFrame;
-
+    private ProgressBar mProgessBarMiniPLayer;
     private HomeFragment homeFragment;
     private SearchFragment searchFragment;
     private LibraryFragment libraryFragment;
     private AccountFragment accountFragment;
-
+    private TextView mTvSongName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        getWindow().setFlags(WindowManager.w);
         setContentView(R.layout.activity_main);
 
         mMainFrame = findViewById(R.id.main_frag_layout);
         mMainNav = findViewById(R.id.main_nav);
+        mTvSongName = findViewById(R.id.tv_song_name);
+        mProgessBarMiniPLayer = findViewById(R.id.progessbar_music);
 
+        mProgessBarMiniPLayer.setProgress(50);
+
+        //make text running
+        mTvSongName.setSelected(true);
 
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
