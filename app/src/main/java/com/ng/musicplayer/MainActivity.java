@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private SearchFragment searchFragment;
     private LibraryFragment libraryFragment;
     private AccountFragment accountFragment;
+
+    private PlaylistDetailsFragment playlistDetailsFragment;
     private TextView mTvSongName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         libraryFragment = new LibraryFragment();
         accountFragment = new AccountFragment();
 
+        playlistDetailsFragment = new PlaylistDetailsFragment();
         setFragmentTo((homeFragment));
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         setFragmentTo(libraryFragment);
                         return true;
                     case R.id.nav_acc:
-                        setFragmentTo(accountFragment);
+                        setFragmentTo(playlistDetailsFragment);
                         return true;
                         default:return false;
                 }

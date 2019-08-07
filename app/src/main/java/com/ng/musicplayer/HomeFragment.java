@@ -78,7 +78,6 @@ public class HomeFragment extends Fragment {
          listOfListAlbums.add(new ListOfListAlbums("trend vietnam", listAlbums));
          listOfListAlbums.add(new ListOfListAlbums("Ha noi xua", listAlbums));
 
-
          AdapterListOfAlbums adapterListOfAlbums = new AdapterListOfAlbums();
 
          adapterListOfAlbums.addListofListAlbums(new ListOfListAlbums("Mới phát gần đây", listAlbums));

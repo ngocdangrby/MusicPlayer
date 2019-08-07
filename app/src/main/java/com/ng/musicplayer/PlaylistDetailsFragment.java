@@ -3,10 +3,17 @@ package com.ng.musicplayer;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,7 +23,6 @@ import android.view.ViewGroup;
  * to handle interaction events.
  * Use the {@link PlaylistDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class PlaylistDetailsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -24,11 +30,17 @@ public class PlaylistDetailsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private RecyclerView mRecyclerView;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    public PlaylistDetailsFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -47,9 +59,6 @@ public class PlaylistDetailsFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public PlaylistDetailsFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,8 +72,14 @@ public class PlaylistDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_playlist_details, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_playlist_details, container, false);
+        mRecyclerView = rootView.findViewById(R.id.songs);
+        SongAdapter songAdapter = new SongAdapter(getSongs());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setHasFixedSize(true);
+        setupAdapter();
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -74,16 +89,16 @@ public class PlaylistDetailsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
     @Override
     public void onDetach() {
@@ -91,6 +106,27 @@ public class PlaylistDetailsFragment extends Fragment {
         mListener = null;
     }
 
+
+
+    private void setupAdapter(){
+        List<Song> songs = getSongs();
+        SongAdapter songAdapter = new SongAdapter(songs);
+        mRecyclerView.setAdapter(songAdapter);
+
+    }
+    private List<Song> getSongs(){
+        List<Song> list = new ArrayList<>();
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người 2", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Hay trao cho ", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Một con vịt ", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        return list;
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

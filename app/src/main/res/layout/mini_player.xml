@@ -9,6 +9,7 @@
         android:id="@+id/progessbar_music"
         android:layout_width="match_parent"
         android:layout_height="2dp"
+        android:progress="50"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
     <ImageButton
         android:id="@+id/btnLike"
