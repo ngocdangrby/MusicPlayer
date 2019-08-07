@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     tools:context=".PlaylistDetailsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -51,6 +50,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
             app:cardBackgroundColor="@android:color/transparent">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/songs"

@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
         mMainFrame = findViewById(R.id.main_frag_layout);
         mMainNav = findViewById(R.id.main_nav);
-        mTvSongName = findViewById(R.id.tv_song_name);
-        mProgessBarMiniPLayer = findViewById(R.id.progessbar_music);
+//        mTvSongName = findViewById(R.id.tv_song_name);
+//        mProgessBarMiniPLayer = findViewById(R.id.progessbar_music);
 
-        mProgessBarMiniPLayer.setProgress(50);
+//        mProgessBarMiniPLayer.setProgress(50);
 
         //make text running
-        mTvSongName.setSelected(true);
+//        mTvSongName.setSelected(true);
 
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();

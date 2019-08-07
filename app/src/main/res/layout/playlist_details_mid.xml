@@ -6,18 +6,17 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <ImageView
-
         android:id="@+id/image_playlist"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="5dp"
         app:srcCompat="@drawable/mytam" />
 
     <TextView
         android:layout_marginTop="16dp"
         android:maxLines="3"
         android:textAlignment="center"
-        android:textSize="26dp"
+        android:textSize="22dp"
         android:id="@+id/tv_playlist_name"
         android:layout_width="wrap_content"
         android:maxWidth="300dp"
@@ -29,7 +28,7 @@
     <TextView
         android:textColor="@color/colorWhiteTrans"
         android:id="@+id/tv_description"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,4 +36,16 @@
         android:ellipsize="end"
         android:maxLines="3"
         android:textAlignment="center"/>
+    <Button
+        android:id="@+id/btn_play_playlist"
+        android:layout_margin="8dp"
+        android:text="Play now"
+        android:textSize="18dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/color_button_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
+
 </LinearLayout>
