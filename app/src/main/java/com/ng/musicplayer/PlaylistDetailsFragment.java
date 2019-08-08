@@ -1,6 +1,7 @@
 package com.ng.musicplayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -8,9 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +28,15 @@ import java.util.List;
  * Use the {@link PlaylistDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlaylistDetailsFragment extends Fragment {
+public class PlaylistDetailsFragment extends Fragment implements SongAdapter.OnSongListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private RecyclerView mRecyclerView;
-
+    private ImageButton btnBack;
+    private Button btnPlayPlaylist;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -74,9 +79,27 @@ public class PlaylistDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_playlist_details, container, false);
         mRecyclerView = rootView.findViewById(R.id.songs);
-        SongAdapter songAdapter = new SongAdapter(getSongs());
+        SongAdapter songAdapter = new SongAdapter(getSongs(), this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
+        btnBack = rootView.findViewById(R.id.btn_back);
+        btnPlayPlaylist = rootView.findViewById(R.id.btn_play_playlist);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        btnPlayPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NowPlayingActivity.class);
+                startActivity(intent);
+            }
+        });
+
         setupAdapter();
 
         return rootView;
@@ -110,12 +133,21 @@ public class PlaylistDetailsFragment extends Fragment {
 
     private void setupAdapter(){
         List<Song> songs = getSongs();
-        SongAdapter songAdapter = new SongAdapter(songs);
+        SongAdapter songAdapter = new SongAdapter(songs, this);
         mRecyclerView.setAdapter(songAdapter);
 
     }
     private List<Song> getSongs(){
         List<Song> list = new ArrayList<>();
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
+        list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
         list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
         list.add(new Song("Xin người 2", "Duy Mạnh", false, R.drawable.mytam));
         list.add(new Song("Hay trao cho ", "Duy Mạnh", false, R.drawable.mytam));
@@ -127,6 +159,13 @@ public class PlaylistDetailsFragment extends Fragment {
         list.add(new Song("Xin người", "Duy Mạnh", false, R.drawable.mytam));
         return list;
     }
+
+    @Override
+    public void OnSongClick(int pos) {
+        Intent intent = new Intent(getActivity(), NowPlayingActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

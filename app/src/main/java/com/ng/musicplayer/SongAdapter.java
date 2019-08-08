@@ -14,24 +14,17 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     private List<Song> mSongs;
     private boolean mPager;
+    private OnSongListener onSongListener;
 
-    public SongAdapter(List<Song> mSongs) {
+    public SongAdapter(List<Song> mSongs, OnSongListener onSongListener) {
+        this.onSongListener = onSongListener;
         this.mSongs = mSongs;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_song, parent, false));
-//        if (mPager) {
-//            return new ViewHolder(LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.albums_adapter_pager, parent, false));
-//        } else {
-//            return mHorizontal ? new ViewHolder(LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.adapter, parent, false)) :
-//                    new ViewHolder(LayoutInflater.from(parent.getContext())
-//                            .inflate(R.layout.adapter_vertical, parent, false));
-//        }
+                .inflate(R.layout.item_song, parent, false), onSongListener);
     }
 
     @Override
@@ -53,19 +46,30 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         return mSongs.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView imageView;
         public TextView nameTextView;
         public TextView artistTextView;
+        public OnSongListener onSongListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, OnSongListener onSongListener) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.imageSong);
             nameTextView = (TextView) itemView.findViewById(R.id.tv_song_name);
             artistTextView = (TextView) itemView.findViewById(R.id.tv_artist_name);
+            this.onSongListener = onSongListener;
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            onSongListener.OnSongClick(getAdapterPosition());
+        }
+    }
+
+    interface OnSongListener {
+        void OnSongClick(int pos);
     }
 
 }
