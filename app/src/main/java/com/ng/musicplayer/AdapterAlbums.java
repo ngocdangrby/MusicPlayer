@@ -14,25 +14,18 @@ public class AdapterAlbums extends RecyclerView.Adapter<AdapterAlbums.ViewHolder
 
     private List<Album> mAlbums;
     private boolean mPager;
+    private OnAlbumListener onAlbumListener;
 
-    public AdapterAlbums(boolean pager, List<Album> albums) {
+    public AdapterAlbums(boolean pager, List<Album> albums, OnAlbumListener onAlbumListener) {
         mAlbums = albums;
         mPager = pager;
+        this.onAlbumListener = onAlbumListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.album_adapter, parent, false));
-//        if (mPager) {
-//            return new ViewHolder(LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.albums_adapter_pager, parent, false));
-//        } else {
-//            return mHorizontal ? new ViewHolder(LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.adapter, parent, false)) :
-//                    new ViewHolder(LayoutInflater.from(parent.getContext())
-//                            .inflate(R.layout.adapter_vertical, parent, false));
-//        }
+                .inflate(R.layout.album_adapter, parent, false), onAlbumListener);
     }
 
     @Override
@@ -54,19 +47,30 @@ public class AdapterAlbums extends RecyclerView.Adapter<AdapterAlbums.ViewHolder
         return mAlbums.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView imageView;
         public TextView nameTextView;
         public TextView artistTextView;
+        public OnAlbumListener onAlbumListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, OnAlbumListener onAlbumListener) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.album_image);
             nameTextView = (TextView) itemView.findViewById(R.id.album_name);
             artistTextView = (TextView) itemView.findViewById(R.id.album_artist);
+            this.onAlbumListener = onAlbumListener;
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            onAlbumListener.onAlbumClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnAlbumListener {
+        void onAlbumClick(int position);
     }
 
 }

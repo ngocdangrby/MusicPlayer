@@ -18,9 +18,10 @@ import java.util.List;
 public class AdapterListOfAlbums extends RecyclerView.Adapter<AdapterListOfAlbums.ViewHolder> implements GravitySnapHelper.SnapListener{
 
     private List<ListOfListAlbums> listOfListAlbums;
+    AdapterAlbums.OnAlbumListener onAlbumListener;
 
-
-    public AdapterListOfAlbums() {
+    public AdapterListOfAlbums(AdapterAlbums.OnAlbumListener onAlbumListener) {
+        this.onAlbumListener = onAlbumListener;
         this.listOfListAlbums = new ArrayList<>();
     }
 
@@ -43,40 +44,8 @@ public class AdapterListOfAlbums extends RecyclerView.Adapter<AdapterListOfAlbum
         ListOfListAlbums snap =  listOfListAlbums.get(position);
         holder.listAlbumsTv.setText(snap.getListName());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder.recyclerView.getContext(), LinearLayoutManager.HORIZONTAL,false));
-//
-//        ListOfListAlbums snap = listOfListAlbums.get(position);
-//        holder.listAlbumsTv.setText(snap.getListName());
-//
-//        if (snap.getGravity() == Gravity.START || snap.getGravity() == Gravity.END) {
-//            holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder
-//                    .recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-//            holder.recyclerView.setOnFlingListener(null);
-//            new GravitySnapHelper(snap.getGravity(), false, this).attachToRecyclerView(holder.recyclerView);
-//        } else if (snap.getGravity() == Gravity.CENTER_HORIZONTAL) {
-//            holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder
-//                    .recyclerView.getContext(), snap.getGravity() == Gravity.CENTER_HORIZONTAL ?
-//                    LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false));
-//            holder.recyclerView.setOnFlingListener(null);
-//            new LinearSnapHelper().attachToRecyclerView(holder.recyclerView);
-//        } else if (snap.getGravity() == Gravity.CENTER) { // Pager snap
-//            holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder
-//                    .recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-//            holder.recyclerView.setOnFlingListener(null);
-//            new PagerSnapHelper().attachToRecyclerView(holder.recyclerView);
-//        } else { // Top / Bottom
-//            holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder
-//                    .recyclerView.getContext()));
-//            holder.recyclerView.setOnFlingListener(null);
-//            new GravitySnapHelper(snap.getGravity()).attachToRecyclerView(holder.recyclerView);
-//////        }
-//////
-//////
-//////        holder.recyclerView.setAdapter(new Adapter(snap.getGravity() == Gravity.START
-//////                || snap.getGravity() == Gravity.END
-//////                || snap.getGravity() == Gravity.CENTER_HORIZONTAL,
-//////                snap.getGravity() == Gravity.CENTER, snap.getApps()));
 
-        holder.recyclerView.setAdapter(new AdapterAlbums(true, snap.getmAlbums()));
+        holder.recyclerView.setAdapter(new AdapterAlbums(true, snap.getmAlbums(), onAlbumListener));
     }
 
     @Override
@@ -100,4 +69,6 @@ public class AdapterListOfAlbums extends RecyclerView.Adapter<AdapterListOfAlbum
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_list_albums);
         }
     }
+
+
 }
