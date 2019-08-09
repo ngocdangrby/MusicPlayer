@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,13 +98,16 @@ public class PlaylistDetailsFragment extends Fragment implements SongAdapter.OnS
         btnPlayPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NowPlayingActivity.class);
-                startActivity(intent);
+                NowPlayingFragment nowPlayingFragment = new NowPlayingFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_frag_layout, nowPlayingFragment, "nowPlayingFragment")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         setupAdapter();
-
+        displayBottomNav();
         return rootView;
     }
 
@@ -123,6 +129,16 @@ public class PlaylistDetailsFragment extends Fragment implements SongAdapter.OnS
 //        }
 //    }
 
+    void displayBottomNav() {
+        //hide bottomnavigationview
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.main_nav);
+        bottomNavigationView.animate().translationY(0);
+        View fragView = getActivity().findViewById(R.id.main_frag_layout);
+
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fragView.getLayoutParams();
+        params.addRule(RelativeLayout.ABOVE, bottomNavigationView.getId());
+        fragView.setLayoutParams(params);
+    }
     @Override
     public void onDetach() {
         super.onDetach();
@@ -162,8 +178,11 @@ public class PlaylistDetailsFragment extends Fragment implements SongAdapter.OnS
 
     @Override
     public void OnSongClick(int pos) {
-        Intent intent = new Intent(getActivity(), NowPlayingActivity.class);
-        startActivity(intent);
+        NowPlayingFragment nowPlayingFragment = new NowPlayingFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_frag_layout, nowPlayingFragment, "nowPlayingFragment")
+                .addToBackStack(null)
+                .commit();
     }
 
     /**

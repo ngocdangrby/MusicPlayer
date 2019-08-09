@@ -8,6 +8,7 @@
     android:padding="32dp">
 
     <androidx.cardview.widget.CardView
+        android:layout_centerHorizontal="true"
         android:id="@+id/card_imgView"
         android:layout_width="350dp"
         android:layout_height="350dp">
@@ -23,32 +24,36 @@
 
 
     <TextView
+
         android:id="@+id/tv_song_name_playing"
         android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@id/card_imgView"
         android:layout_marginTop="24dp"
         android:text="Năm ấy"
+        android:maxLines="2"
         android:textColor="@color/colorWhite"
         android:textSize="28dp" />
 
     <TextView
         android:id="@+id/tv_artist_name"
         android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_song_name_playing"
         android:text="Đức Phúc"
+        android:maxLines="2"
         android:textColor="@color/colorWhiteTrans"
         android:textSize="18dp" />
 
-    <ProgressBar
-        android:id="@+id/progessbar_music_playing"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    <SeekBar
+        android:id="@+id/seekbar_music_playing"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="5dp"
         android:layout_above="@id/tv_time_total"
         android:layout_marginBottom="8dp"
-        android:progress="50" />
+        android:progress="35" />
 
     <TextView
         android:id="@+id/tv_time_playing"

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         libraryFragment = new LibraryFragment();
         accountFragment = new AccountFragment();
 
-        playlistDetailsFragment = new PlaylistDetailsFragment();
         setFragmentTo((homeFragment));
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -66,13 +66,15 @@ public class MainActivity extends AppCompatActivity {
                         setFragmentTo(libraryFragment);
                         return true;
                     case R.id.nav_acc:
-                        setFragmentTo(playlistDetailsFragment);
+                        setFragmentTo(accountFragment);
                         return true;
                         default:return false;
                 }
                             }
         });
+        System.out.println("navid la" + mMainNav.getId());
     }
+
     private void  setFragmentTo(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frag_layout, fragment);
